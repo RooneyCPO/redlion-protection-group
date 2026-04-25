@@ -1,0 +1,24 @@
+{
+  "hero_headline": "RedLion",
+  "hero_headline_accent": "Protection Group",
+  "hero_tagline": "Expert security, reliable care, complete peace of mind.",
+  "hero_sub": "Elite close protection, residential & estate security, hotel and event teams, and specialist care — delivered with discretion across London and internationally, 24/7.",
+  "hero_services": [
+    { "name": "Close Protection" },
+    { "name": "Residential" },
+    { "name": "Hotel & Events" },
+    { "name": "Secure Transport" },
+    { "name": "Specialist Care" }
+  ],
+  "hero_cta_primary": "Request a confidential brief",
+  "hero_cta_secondary": "Explore services",
+  "about_eyebrow": "01 — Our Mission",
+  "about_title": "Premium security & care.",
+  "about_quote": "We don't cherry-pick cases. We show up when others hesitate.",
+  "about_body": "RedLion Protection Group exists to provide premium security and care services through unmatched professionalism, adaptability, and care. We specialise in close protection and executive protection to ensure the safety of our clients.\n\nAt RedLion Protection Group, we provide elite security and care services with professionalism, integrity, and discretion. Whether through our close protection for high-profile individuals or our comprehensive executive protection strategies, we are committed to safeguarding people, properties, and reputations with excellence in all that we do.\n\nOur offerings include secure accommodation and 24-hour care for vulnerable young people, making RedLion Protection Group a trusted choice for private clients, local authorities, and luxury hospitality venues.",
+  "vision_title": "To be the most trusted provider.",
+  "vision_body": "To be the most trusted provider of specialist protection and care services in the UK and beyond — a brand synonymous with integrity, responsiveness, and excellence across every sector we serve.",
+  "vision_quote": "Every client is different. Every solution is bespoke.",
+  "office_address": "142 Cromwell Road\nLondon SW7 4EF\nUnited Kingdom",
+  "office_email": "office@redlionpg.com"
+}

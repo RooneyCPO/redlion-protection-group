@@ -1,0 +1,115 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# All editor uploads go into /assets so they sit alongside existing photos.
+media_folder: assets
+public_folder: /assets
+
+# Show editorial workflow (draft → review → publish) so changes can be staged.
+publish_mode: editorial_workflow
+
+site_url: https://redlionversion1.netlify.app
+display_url: https://redlionversion1.netlify.app
+logo_url: /assets/logo-crest-transparent.png
+
+collections:
+  - name: site
+    label: Site copy
+    files:
+      - file: content/site.json
+        label: Homepage
+        name: homepage
+        fields:
+          - { label: 'Hero — headline', name: hero_headline, widget: string }
+          - { label: 'Hero — italic accent (e.g. "Protection Group")', name: hero_headline_accent, widget: string }
+          - { label: 'Hero — tagline (italic)', name: hero_tagline, widget: string }
+          - { label: 'Hero — description', name: hero_sub, widget: text }
+          - label: 'Hero — service pills'
+            name: hero_services
+            widget: list
+            field: { label: Service, name: name, widget: string }
+          - { label: 'Hero — primary button', name: hero_cta_primary, widget: string }
+          - { label: 'Hero — secondary button', name: hero_cta_secondary, widget: string }
+          - { label: 'About — eyebrow', name: about_eyebrow, widget: string }
+          - { label: 'About — title', name: about_title, widget: string }
+          - { label: 'About — pull quote', name: about_quote, widget: string }
+          - { label: 'About — body (Markdown)', name: about_body, widget: markdown }
+          - { label: 'Vision — title', name: vision_title, widget: string }
+          - { label: 'Vision — body', name: vision_body, widget: text }
+          - { label: 'Vision — pull quote', name: vision_quote, widget: string }
+          - { label: 'Office — address', name: office_address, widget: text }
+          - { label: 'Office — email', name: office_email, widget: string }
+
+  - name: services
+    label: Services
+    files:
+      - file: content/services.json
+        label: Services list
+        name: services
+        fields:
+          - label: Services
+            name: items
+            widget: list
+            fields:
+              - { label: 'Number (e.g. 001)', name: num, widget: string }
+              - { label: 'Title', name: title, widget: string }
+              - { label: 'Italic accent in title', name: title_accent, widget: string, required: false }
+              - { label: 'Description', name: description, widget: text }
+
+  - name: divisions
+    label: Departments
+    files:
+      - file: content/divisions.json
+        label: Department cards
+        name: divisions
+        fields:
+          - label: Departments
+            name: items
+            widget: list
+            fields:
+              - { label: 'Roman numeral (i, ii, iii)', name: roman, widget: string }
+              - { label: 'Title', name: title, widget: string }
+              - { label: 'Italic accent in title', name: title_accent, widget: string, required: false }
+              - { label: 'Body', name: body, widget: text }
+              - { label: 'Pull quote', name: quote, widget: text }
+              - { label: 'Photo', name: image, widget: image }
+
+  - name: team
+    label: Team bios
+    folder: content/team
+    create: true
+    slug: '{{order}}-{{slug}}'
+    sortable_fields: [order, name]
+    summary: '{{order}} · {{name}} {{name_em}}'
+    fields:
+      - { label: 'Order (1, 2, 3 …)', name: order, widget: number, value_type: int, min: 1 }
+      - { label: 'First name', name: name, widget: string }
+      - { label: 'Last name (italicised)', name: name_em, widget: string }
+      - { label: 'Mark (e.g. Founder, Consultant)', name: mark, widget: string }
+      - { label: 'Role', name: role, widget: string }
+      - label: 'Credential chips'
+        name: credentials
+        widget: list
+        field: { label: Chip, name: label, widget: string }
+      - label: 'External link (optional)'
+        name: link
+        widget: object
+        required: false
+        fields:
+          - { label: 'Label (e.g. "Survival Centric →")', name: label, widget: string }
+          - { label: 'URL', name: url, widget: string }
+      - { label: 'Bio (Markdown — write each paragraph on its own)', name: body, widget: markdown }
+
+  - name: trust
+    label: Accreditations bar
+    files:
+      - file: content/trust.json
+        label: Trust signals
+        name: trust
+        fields:
+          - { label: Section label, name: label, widget: string }
+          - label: Items
+            name: items
+            widget: list
+            field: { label: Text, name: text, widget: string }

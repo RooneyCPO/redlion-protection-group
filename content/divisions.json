@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "roman": "i",
+      "title": "Security",
+      "title_accent": "Division",
+      "body": "Our Close Protection experts are handpicked for their experience, discretion, and readiness. Whether it's executive protection or private surveillance, we provide calm, capable professionals who understand the complexities of elite security.",
+      "quote": "We tailor our protection so clients can live freely — confident that we've got them covered.",
+      "image": "/assets/security-chauffeur.jpg"
+    },
+    {
+      "roman": "ii",
+      "title": "Hospitality",
+      "title_accent": "Division",
+      "body": "Trusted by luxury hotels, we support and supplement in-house teams with refined, unobtrusive security services that blend into the guest experience.",
+      "quote": "Our presence is discreet, our protection seamless — because luxury never compromises on safety.",
+      "image": "/assets/hospitality-doorman.jpg"
+    },
+    {
+      "roman": "iii",
+      "title": "Care",
+      "title_accent": "Division",
+      "body": "We serve local authorities and families with compassionate, professional care for children and young people in vulnerable situations. Our interventions are built on empathy, experience, and strict safeguarding standards.",
+      "quote": "We guide, support, and protect children so they can reach their potential and feel safe.",
+      "image": "/assets/care-division.png"
+    }
+  ]
+}

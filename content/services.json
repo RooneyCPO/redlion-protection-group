@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "num": "001",
+      "title": "Close Protection &",
+      "title_accent": "Security Driving",
+      "description": "Elite personal security for high-net-worth individuals, VIPs, executives, and families. We provide overt or covert services, supported by reconnaissance, travel planning, and security consultation."
+    },
+    {
+      "num": "002",
+      "title": "24/7",
+      "title_accent": "Residential Security",
+      "description": "On-site presence, CCTV surveillance, concierge-level access control, and alarm response tailored to estates and luxury properties."
+    },
+    {
+      "num": "003",
+      "title": "Hotel",
+      "title_accent": "Security",
+      "description": "Discreet deployment in hotels, resorts, and events. We work seamlessly with in-house teams to preserve guest experience while ensuring total security."
+    },
+    {
+      "num": "004",
+      "title": "Event",
+      "title_accent": "Security",
+      "description": "Professional event security delivered with discretion and control. Our teams work in alignment with event organisers and venue staff to protect guests, manage risk, and maintain the overall experience without disruption."
+    },
+    {
+      "num": "005",
+      "title": "Care",
+      "title_accent": "Services",
+      "description": "24-hour care and crisis intervention, secure transport, hospital watch, and secured accommodation. Specialist support for children and young people under the care of local authorities — particularly those facing behavioural, mental health, or high-risk challenges."
+    }
+  ]
+}
