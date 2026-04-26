@@ -14,32 +14,17 @@ display_url: https://redlionversion1.netlify.app
 logo_url: /assets/logo-crest-transparent.png
 
 collections:
-  - name: site
-    label: Site copy
+  - name: contact
+    label: Contact details
     files:
-      - file: content/site.json
-        label: Homepage
-        name: homepage
+      - file: content/contact.json
+        label: Office contact
+        name: contact
         fields:
-          - { label: 'Hero — headline', name: hero_headline, widget: string }
-          - { label: 'Hero — italic accent (e.g. "Protection Group")', name: hero_headline_accent, widget: string }
-          - { label: 'Hero — tagline (italic)', name: hero_tagline, widget: string }
-          - { label: 'Hero — description', name: hero_sub, widget: text }
-          - label: 'Hero — service pills'
-            name: hero_services
-            widget: list
-            field: { label: Service, name: name, widget: string }
-          - { label: 'Hero — primary button', name: hero_cta_primary, widget: string }
-          - { label: 'Hero — secondary button', name: hero_cta_secondary, widget: string }
-          - { label: 'About — eyebrow', name: about_eyebrow, widget: string }
-          - { label: 'About — title', name: about_title, widget: string }
-          - { label: 'About — pull quote', name: about_quote, widget: string }
-          - { label: 'About — body (Markdown)', name: about_body, widget: markdown }
-          - { label: 'Vision — title', name: vision_title, widget: string }
-          - { label: 'Vision — body', name: vision_body, widget: text }
-          - { label: 'Vision — pull quote', name: vision_quote, widget: string }
-          - { label: 'Office — address', name: office_address, widget: text }
-          - { label: 'Office — email', name: office_email, widget: string }
+          - { label: 'Office address (multi-line)', name: address, widget: text }
+          - { label: 'Email', name: email, widget: string }
+          - { label: 'Phone (optional)', name: phone, widget: string, required: false }
+          - { label: 'Availability', name: availability, widget: string, default: '24 hours, 7 days a week' }
 
   - name: services
     label: Services
@@ -68,7 +53,7 @@ collections:
             name: items
             widget: list
             fields:
-              - { label: 'Roman numeral (i, ii, iii)', name: roman, widget: string }
+              - { label: 'Roman numeral (i, ii, iii, iv …)', name: roman, widget: string }
               - { label: 'Title', name: title, widget: string }
               - { label: 'Italic accent in title', name: title_accent, widget: string, required: false }
               - { label: 'Body', name: body, widget: text }
@@ -101,15 +86,19 @@ collections:
           - { label: 'URL', name: url, widget: string }
       - { label: 'Bio (Markdown — write each paragraph on its own)', name: body, widget: markdown }
 
-  - name: trust
-    label: Accreditations bar
+  - name: partners
+    label: Partners
     files:
-      - file: content/trust.json
-        label: Trust signals
-        name: trust
+      - file: content/partners.json
+        label: Partner list
+        name: partners
         fields:
-          - { label: Section label, name: label, widget: string }
-          - label: Items
+          - label: Partners
             name: items
             widget: list
-            field: { label: Text, name: text, widget: string }
+            fields:
+              - { label: 'Partner name (shown as logo text if no image)', name: name, widget: string }
+              - { label: 'Tagline / sector (e.g. "Hospitality & private client")', name: tagline, widget: string, required: false }
+              - { label: 'Italic accent in tagline', name: tagline_accent, widget: string, required: false }
+              - { label: 'Website URL', name: url, widget: string, required: false }
+              - { label: 'Logo image (optional — overrides text)', name: logo, widget: image, required: false }

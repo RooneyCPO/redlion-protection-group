@@ -1,0 +1,18 @@
+{
+  "items": [
+    {
+      "name": "Survival Centric",
+      "tagline": "Training & combatives",
+      "tagline_accent": "combatives",
+      "url": "https://survivalcentric.com/",
+      "logo": ""
+    },
+    {
+      "name": "Premium International Protection",
+      "tagline": "Hospitality & private client",
+      "tagline_accent": "private client",
+      "url": "",
+      "logo": ""
+    }
+  ]
+}
