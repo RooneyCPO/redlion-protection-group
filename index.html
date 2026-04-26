@@ -1034,7 +1034,49 @@ footer{background:var(--ink);color:var(--ivory);padding:80px var(--gutter) 32px}
     }).join('');
   }
 
-  Promise.all([hydrateContact(), hydrateServices(), hydrateDivisions(), hydratePartners()])
+  function renderInline(text) {
+    // text is already HTML-escaped. Convert minimal Markdown: links, italic.
+    let html = text
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      .replace(/\*([^*\n]+?)\*/g, '<em>$1</em>');
+    return html;
+  }
+  function renderMarkdown(body) {
+    return (body || '').trim().split(/\n\s*\n/)
+      .map(p => `<p>${renderInline(esc(p.trim()))}</p>`)
+      .join('');
+  }
+
+  async function hydrateTeam() {
+    const data = await fetchJson('content/team.json');
+    if (!data?.items?.length) return;
+    const section = document.querySelector('section.people');
+    if (!section) return;
+    const head = section.querySelector('.people-head');
+    section.querySelectorAll('article.bio').forEach(el => el.remove());
+    const html = data.items.map(b => {
+      const credChips = (b.credentials || [])
+        .map(c => `<span>${esc(c.label)}</span>`).join('');
+      const linkHtml = b.link?.url
+        ? `<a class="bio-link" href="${esc(b.link.url)}" target="_blank" rel="noopener">${esc(b.link.label)}</a>`
+        : '';
+      return `
+        <article class="bio">
+          <aside class="bio-side">
+            <div class="bio-mark">— ${esc(b.mark)}</div>
+            <h3 class="bio-name">${esc(b.name)} <em>${esc(b.name_em)}</em></h3>
+            <div class="bio-role">${esc(b.role)}</div>
+            <div class="bio-creds">${credChips}</div>
+            ${linkHtml}
+          </aside>
+          <div class="bio-body">${renderMarkdown(b.body)}</div>
+        </article>`;
+    }).join('');
+    if (head) head.insertAdjacentHTML('afterend', html);
+    else section.insertAdjacentHTML('beforeend', html);
+  }
+
+  Promise.all([hydrateContact(), hydrateServices(), hydrateDivisions(), hydratePartners(), hydrateTeam()])
     .catch(err => console.warn('CMS hydration error:', err));
 
   // Enquiry form — AJAX submit to FormSubmit, in-page confirmation

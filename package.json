@@ -1,0 +1,12 @@
+{
+  "name": "redlion-protection-group",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Marketing site for RedLion Protection Group. Build step bakes Markdown team bios into a single JSON file the page hydrates from.",
+  "scripts": {
+    "build": "node build-team.js"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
