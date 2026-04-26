@@ -400,8 +400,8 @@ footer{background:var(--ink);color:var(--ivory);padding:80px var(--gutter) 32px}
   <a href="#contact">Contact</a>
   <a href="#contact" class="mobile-cta">Request a confidential brief →</a>
   <div class="mobile-contact">
-    <a href="mailto:office@redlionpg.com">office@redlionpg.com</a>
-    <span>142 Cromwell Road, London SW7 4EF</span>
+    <a href="mailto:office@redlionpg.com" data-contact="email-link">office@redlionpg.com</a>
+    <span data-contact="address-short">142 Cromwell Road, London SW7 4EF</span>
   </div>
 </div>
 
@@ -765,7 +765,7 @@ footer{background:var(--ink);color:var(--ivory);padding:80px var(--gutter) 32px}
     <p class="lede" style="color:var(--ivory-2);max-width:620px;margin:0 auto 40px">Every engagement begins with a confidential conversation. Tell us what you need — a member of the team will be in touch personally.</p>
     <div class="actions">
       <a href="#contact" class="btn primary">Request a confidential brief</a>
-      <a href="mailto:office@redlionpg.com" class="btn ghost-inv">office@redlionpg.com</a>
+      <a href="mailto:office@redlionpg.com" class="btn ghost-inv" data-contact="email-link">office@redlionpg.com</a>
     </div>
   </div>
 </section>
@@ -781,15 +781,19 @@ footer{background:var(--ink);color:var(--ivory);padding:80px var(--gutter) 32px}
       <div class="contact-info">
         <div class="info-row">
           <div class="label">RedLion Protection Group</div>
-          <div class="value">142 Cromwell Road<br>London SW7 4EF · United Kingdom</div>
+          <div class="value" data-contact="address">142 Cromwell Road<br>London SW7 4EF<br>United Kingdom</div>
         </div>
         <div class="info-row">
           <div class="label">Email</div>
-          <div class="value"><a href="mailto:office@redlionpg.com">office@redlionpg.com</a></div>
+          <div class="value"><a href="mailto:office@redlionpg.com" data-contact="email-link">office@redlionpg.com</a></div>
+        </div>
+        <div class="info-row" data-contact-row="phone" hidden>
+          <div class="label">Phone</div>
+          <div class="value"><a href="tel:" data-contact="phone-link"></a></div>
         </div>
         <div class="info-row">
           <div class="label">Availability</div>
-          <div class="value">24 hours, 7 days a week</div>
+          <div class="value" data-contact="availability">24 hours, 7 days a week</div>
         </div>
       </div>
     </div>
@@ -892,8 +896,9 @@ footer{background:var(--ink);color:var(--ivory);padding:80px var(--gutter) 32px}
     </div>
     <div class="foot-col">
       <h4>Office</h4>
-      <p>142 Cromwell Road<br>London SW7 4EF<br>United Kingdom</p>
-      <a href="mailto:office@redlionpg.com" style="margin-top:10px;color:var(--gold-2)">office@redlionpg.com</a>
+      <p data-contact="address">142 Cromwell Road<br>London SW7 4EF<br>United Kingdom</p>
+      <a href="mailto:office@redlionpg.com" data-contact="email-link" style="margin-top:10px;color:var(--gold-2)">office@redlionpg.com</a>
+      <a href="tel:" data-contact="phone-link" data-contact-row="phone" hidden style="margin-top:6px;color:var(--gold-2)"></a>
     </div>
   </div>
   <div class="foot-bottom">
@@ -928,6 +933,109 @@ footer{background:var(--ink);color:var(--ivory);padding:80px var(--gutter) 32px}
     });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ──────────────────────────────────────────────────────────────────
+  // CMS-driven content — fetch JSON files and re-render the page
+  // Edits made via /admin/ commit to /content/*.json. This script then
+  // hydrates the page from those files so CMS changes appear live.
+  // ──────────────────────────────────────────────────────────────────
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const renderTitleAccent = (title, accent) => accent
+    ? `${esc(title)} <em>${esc(accent)}</em>`
+    : esc(title);
+  const fetchJson = (path) => fetch(path, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
+
+  async function hydrateContact() {
+    const data = await fetchJson('content/contact.json');
+    if (!data) return;
+    const addressHtml = esc(data.address || '').replace(/\n/g, '<br>');
+    document.querySelectorAll('[data-contact="address"]').forEach(el => { el.innerHTML = addressHtml; });
+    document.querySelectorAll('[data-contact="address-short"]').forEach(el => {
+      el.textContent = (data.address || '').split('\n').slice(0,2).join(', ');
+    });
+    if (data.email) {
+      document.querySelectorAll('[data-contact="email-link"]').forEach(el => {
+        el.textContent = data.email;
+        if (el.tagName === 'A') el.href = `mailto:${data.email}`;
+      });
+    }
+    const phoneRows = document.querySelectorAll('[data-contact-row="phone"]');
+    if (data.phone && data.phone.trim()) {
+      phoneRows.forEach(row => row.removeAttribute('hidden'));
+      document.querySelectorAll('[data-contact="phone-link"]').forEach(el => {
+        el.textContent = data.phone;
+        el.href = `tel:${data.phone.replace(/[^\d+]/g,'')}`;
+      });
+    } else {
+      phoneRows.forEach(row => row.setAttribute('hidden',''));
+    }
+    if (data.availability) {
+      document.querySelectorAll('[data-contact="availability"]').forEach(el => {
+        el.textContent = data.availability;
+      });
+    }
+  }
+
+  async function hydrateServices() {
+    const data = await fetchJson('content/services.json');
+    if (!data?.items?.length) return;
+    const list = document.querySelector('.service-list');
+    if (!list) return;
+    list.innerHTML = data.items.map(s => `
+      <a class="service-item" href="#contact">
+        <span class="num">${esc(s.num)}</span>
+        <h3>${renderTitleAccent(s.title, s.title_accent)}</h3>
+        <p>${esc(s.description)}</p>
+        <span class="arrow">→</span>
+      </a>`).join('');
+  }
+
+  async function hydrateDivisions() {
+    const data = await fetchJson('content/divisions.json');
+    if (!data?.items?.length) return;
+    const grid = document.querySelector('.division-grid');
+    if (!grid) return;
+    grid.innerHTML = data.items.map(d => {
+      const img = (d.image || '').replace(/^\//,''); // strip leading slash for relative paths
+      return `
+      <article class="division-card">
+        <div class="division-photo">
+          ${img ? `<img src="${esc(img)}" alt="${esc(d.title)} ${esc(d.title_accent || '')}" loading="lazy" />` : ''}
+          <div class="roman">— ${esc(d.roman)}.</div>
+        </div>
+        <div class="division-body">
+          <h3>${renderTitleAccent(d.title, d.title_accent)}</h3>
+          ${d.body ? `<p class="body">${esc(d.body)}</p>` : ''}
+          ${d.quote ? `<blockquote>${esc(d.quote)}</blockquote>` : ''}
+        </div>
+      </article>`;
+    }).join('');
+  }
+
+  async function hydratePartners() {
+    const data = await fetchJson('content/partners.json');
+    if (!data?.items?.length) return;
+    const grid = document.querySelector('.partner-grid');
+    if (!grid) return;
+    grid.innerHTML = data.items.map(p => {
+      const tagline = p.tagline_accent && p.tagline?.includes(p.tagline_accent)
+        ? esc(p.tagline).replace(esc(p.tagline_accent), `<em>${esc(p.tagline_accent)}</em>`)
+        : esc(p.tagline || '');
+      const logoInner = p.logo
+        ? `<img src="${esc((p.logo || '').replace(/^\//,''))}" alt="${esc(p.name)}">`
+        : esc(p.name);
+      const tag = p.url ? 'a' : 'div';
+      const linkAttrs = p.url ? ` href="${esc(p.url)}" target="_blank" rel="noopener"` : '';
+      return `<${tag} class="partner-card"${linkAttrs}>
+        <div class="partner-logo">${logoInner}</div>
+        ${p.tagline ? `<div class="partner-name">${tagline}</div>` : ''}
+        ${p.url ? `<span class="partner-link">Visit site</span>` : ''}
+      </${tag}>`;
+    }).join('');
+  }
+
+  Promise.all([hydrateContact(), hydrateServices(), hydrateDivisions(), hydratePartners()])
+    .catch(err => console.warn('CMS hydration error:', err));
 
   // Enquiry form — AJAX submit to FormSubmit, in-page confirmation
   const enquiryForm = document.getElementById('enquiryForm');
