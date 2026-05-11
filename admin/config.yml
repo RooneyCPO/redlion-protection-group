@@ -9,8 +9,8 @@ public_folder: /assets
 # Show editorial workflow (draft → review → publish) so changes can be staged.
 publish_mode: editorial_workflow
 
-site_url: https://redlionversion1.netlify.app
-display_url: https://redlionversion1.netlify.app
+site_url: https://redlionpg.com
+display_url: https://redlionpg.com
 logo_url: /assets/logo-crest-transparent.png
 
 collections:
