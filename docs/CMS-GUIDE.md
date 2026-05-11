@@ -2,16 +2,42 @@
 
 Quick guide to the content editor. No technical skill needed — if you can fill in a form, you can use this.
 
+**Live site:** https://redlionpg.com
+**Editor:** https://redlionpg.com/admin/
+
 ---
 
-## 1. First-time login
+## 1. Logging in
 
-1. Check your inbox for an invite email from **Netlify / RedLion Protection Group**. Subject is usually *"You've been invited to join…"*.
-2. Click the link. The RedLion homepage opens with a small panel asking you to **set a password**. Choose a strong one.
-3. You're now logged in.
-4. From now on, log in here: **https://redlionversion1.netlify.app/admin/**
+Your editor login has been set up. Use the email address you nominated (typically `office@redlionpg.com`) and the password you chose during handover.
 
-If you ever forget the password, click **"Forgot password?"** on that page — a reset link is emailed.
+1. Open **https://redlionpg.com/admin/**
+2. Enter your email and password
+3. Click **Login**
+
+You'll land directly in the editor.
+
+### Changing your password
+
+You can change your password at any time:
+
+1. Log out of the editor (top-right of the editor → **Log out**, or just close the tab)
+2. Go back to **https://redlionpg.com/admin/**
+3. Click **"Forgot password?"** below the login form
+4. Enter your email address
+5. Check that inbox for a reset email from Netlify — subject usually *"Password recovery instructions"*. Check spam/promotions if it's not in the main inbox within a minute.
+6. Click the link in the email → set a new password
+7. Log back in with the new password
+
+Use a strong, unique password and store it somewhere safe (password manager recommended). There's no way to recover a lost password except via the email reset above — anyone who can read the `office@redlionpg.com` inbox can reset it.
+
+### Inviting another editor (or removing one)
+
+If you ever want to add a second person who can edit the site (or remove someone), that's done through Netlify rather than the editor itself. Contact your developer — it's a 1-minute change.
+
+### Getting back to the live site while editing
+
+The editor has a small **← Back to site** button in the top-right corner. Click it any time to open the live website in the same tab — handy for previewing how your changes look.
 
 ---
 
